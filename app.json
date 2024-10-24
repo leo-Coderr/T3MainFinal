@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "t3-wallet",
+    "slug": "t3app",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/maskbg.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/maskbg.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cryptocoderr.t3wallet"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/maskbg.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.cryptocoderr.t3wallet"
+    },
+    "web": {
+      "favicon": "./assets/maskbg.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e81645a7-61f4-4454-a392-281edf7fc876"
+      }
+    },
+    "owner": "cryptocoderr",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ef9f6f96-4c29-4ec0-a223-728ce105cab0"
+    }
+  }
+}

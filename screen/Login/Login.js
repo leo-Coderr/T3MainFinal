@@ -10,32 +10,32 @@ import {
   View,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import FingerprintScanner from "react-native-fingerprint-scanner";
+// import FingerprintScanner from "react-native-fingerprint-scanner";
 
 function Login({ navigation }) {
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    FingerprintScanner.isSensorAvailable()
-      .then(() => {
-        FingerprintScanner.authenticate({
-          description: "Please authenticate in order to use T3 WAllet",
-        })
-          .then(() => {
-            navigation.navigate("Chain");
-          })
-          .catch((error) => {
-            console.error("Fingerprint authentication failed:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Fingerprint sensor not available:", error);
-      });
+  // useEffect(() => {
+  //   FingerprintScanner.isSensorAvailable()
+  //     .then(() => {
+  //       FingerprintScanner.authenticate({
+  //         description: "Please authenticate in order to use T3 WAllet",
+  //       })
+  //         .then(() => {
+  //           navigation.navigate("Chain");
+  //         })
+  //         .catch((error) => {
+  //           console.error("Fingerprint authentication failed:", error);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       console.error("Fingerprint sensor not available:", error);
+  //     });
 
-    return () => {
-      FingerprintScanner.release();
-    };
-  }, []);
+  //   return () => {
+  //     FingerprintScanner.release();
+  //   };
+  // }, []);
 
   const login = async () => {
     try {
@@ -95,11 +95,11 @@ function Login({ navigation }) {
           </Text>
         </View>
         <View>
-          <Text style={{ fontSize: 18, color: "#fff" }}>Password</Text>
+          {/* <Text style={{ fontSize: 18, color: "#fff" }}>Password</Text> */}
           <TextInput
             style={{
               borderWidth: 1,
-              borderColor: "gray",
+              borderColor: "white",
               padding: 10,
               fontSize: 20,
               borderRadius: 5,
@@ -107,7 +107,7 @@ function Login({ navigation }) {
               color: "#fff",
             }}
             placeholder="Password"
-            placeholderTextColor="gray"
+            placeholderTextColor="lightgray" // Changed to light gray
             onChangeText={setPassword}
             secureTextEntry={true}
           />

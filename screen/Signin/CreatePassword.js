@@ -18,7 +18,7 @@ import SovereignHeading from "../Import/WalletSetup/SovereignHeading";
 
 export default function CreatePassword() {
   const route = useRoute();
-  const { sovid = "" } = route.params || {};
+  const { sovId = "" } = route.params || {};
   const navigation = useNavigation();
   const [isChecked, setIsChecked] = useState(false);
   const [password, setPassword] = useState("");
@@ -64,8 +64,12 @@ export default function CreatePassword() {
   };
 
   const handleCreatePassword = () => {
+    if (!isChecked) {
+      setErrorMessage("You must agree to the terms before proceeding.");
+      return;
+    }
     if (validatePassword() && isChecked) {
-      navigateTo("VerifySeedPhrase", { password });
+      navigateTo("VerifySeedPhrase", { password: password, sovId: sovId });
     }
   };
 
@@ -117,7 +121,7 @@ export default function CreatePassword() {
           style={{
             color: "white",
             borderWidth: 1,
-            borderColor: "gray",
+            borderColor: "white",
             borderRadius: 5,
             padding: 10,
             marginBottom: 40,
@@ -125,7 +129,7 @@ export default function CreatePassword() {
           secureTextEntry={!passwordShow}
           onChangeText={setPassword}
           placeholder="New Password"
-          placeholderTextColor="gray"
+          placeholderTextColor="lightgray"
         />
         <View style={{ marginBottom: 10 }}>
           <Text style={{ color: "white" }}>Confirm Password</Text>
@@ -134,7 +138,7 @@ export default function CreatePassword() {
           style={{
             color: "white",
             borderWidth: 1,
-            borderColor: "gray",
+            borderColor: "white",
             borderRadius: 5,
             padding: 10,
             marginBottom: 40,
@@ -142,7 +146,7 @@ export default function CreatePassword() {
           secureTextEntry={!passwordShow}
           onChangeText={setConfirmPassword}
           placeholder="Confirm Password"
-          placeholderTextColor="gray"
+          placeholderTextColor="lightgray"
         />
         {errorMessage !== "" && (
           <Text style={{ color: "red", textAlign: "center", marginBottom: 20 }}>
@@ -159,7 +163,13 @@ export default function CreatePassword() {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Switch value={isChecked} onValueChange={setIsChecked} />
+            <Switch
+              value={isChecked}
+              onValueChange={setIsChecked}
+              style={{ width: 35 }}
+              trackColor={{ false: "#767577", true: "#ff00ff" }}
+              thumbColor={isChecked ? "#ff00ff" : "#f4f3f4"}
+            />
             <Text style={{ color: "white", marginLeft: 10 }}>
               I understand that SovereignT³ cannot recover this password for me.
             </Text>

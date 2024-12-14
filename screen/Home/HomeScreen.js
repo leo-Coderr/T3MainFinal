@@ -57,7 +57,7 @@ function NewHome() {
               userData[currency][accountno - 1].privateKey;
             setwallet(selectedWallet);
             setprivateKey(selectedPrivateKey);
-            const data = await balanceFetch(currency, selectedWallet);
+            const data = await balanceFetch(currency, [selectedWallet]);
             setBalance(data);
           }
         } else {
@@ -83,8 +83,13 @@ function NewHome() {
             `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
           );
           setprice_change(data.data.ethereum.usd);
+        } else if (currency === "BTC") {
+          const data = await axios.get(
+            `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd`
+          );
+          setprice_change(data.data.bitcoin.usd);
         } else if (currency === "SOID") {
-          setprice_change(0.15);
+          setprice_change(0.025);
         }
       } catch (error) {
         console.error("Error fetching price change:", error);
@@ -129,7 +134,7 @@ function NewHome() {
               <View
                 style={{
                   ...(currency === "SOID" && {
-                    backgroundColor: "rgba(0,0,0,0.2)",
+                    backgroundColor: "rgba(255, 255, 255, 0.15)",
                     padding: 15,
                     borderRadius: 50,
                   }),
@@ -137,13 +142,18 @@ function NewHome() {
               >
                 <Image
                   source={
-                    currency == "ETH"
+                    currency === "ETH"
                       ? require("../../assets/ETH.png")
-                      : currency == "SOLANA"
+                      : currency === "SOLANA"
                       ? require("../../assets/Solana.png")
-                      : currency == "SOID" && require("../../assets/mask.png")
+                      : currency === "SOID"
+                      ? require("../../assets/mask.png")
+                      : currency === "BTC" && require("../../assets/Btc.png")
                   }
-                  style={{ width: 50, height: 50 }}
+                  style={{
+                    width: currency === "BTC" ? 55 : 50,
+                    height: currency === "BTC" ? 55 : 50,
+                  }}
                   resizeMode="cover"
                   resizeMethod="scale"
                 />
@@ -176,18 +186,19 @@ function NewHome() {
                 $&nbsp;
                 {balance
                   ? currency == "SOID"
-                    ? Number(balance / 1e6).toFixed(2) * 0.15
-                    : Number(balance).toFixed(2) *
-                      Number(price_change).toFixed(2)
+                    ? Number(balance / 1e6).toFixed(2) * 0.025
+                    : Number(balance * price_change).toFixed(4)
                   : "0.00"}
               </Text>
             </View>
             <View
               style={{
+                backgroundColor: "rgba(255, 255, 255, 0.15)",
+                borderRadius: 16,
                 borderColor: "#fff",
-                borderWidth: 1,
                 borderRadius: 10,
-                padding: 20,
+                paddingHorizontal: 20,
+                paddingVertical: 30,
                 marginBottom: 20,
               }}
             >
@@ -195,7 +206,7 @@ function NewHome() {
                 style={{
                   flexDirection: "row",
                   gap: 10,
-                  marginBottom: 30,
+                  marginBottom: 20,
                   alignItems: "center",
                   justifyContent: "space-between",
                 }}
@@ -213,11 +224,16 @@ function NewHome() {
                   />
                   <Text style={{ color: "white" }}>Account {accountno}</Text>
                 </View>
-                <ChevronDownIcon
-                  color="white"
-                  size={16}
+                <TouchableOpacity
                   onPress={() => setModalVisible(true)}
-                />
+                  style={{
+                    padding: 5,
+                    backgroundColor: "rgba(255, 255, 255, 0.15)",
+                    borderRadius: 8,
+                  }}
+                >
+                  <ChevronDownIcon color="white" size={18} />
+                </TouchableOpacity>
               </View>
               <View
                 style={{
@@ -239,7 +255,7 @@ function NewHome() {
                     style={{
                       flexDirection: "row",
                       alignItems: "center",
-                      backgroundColor: "rgba(0,0,0,0.2)",
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
                       borderRadius: 10,
                       paddingHorizontal: 8,
                       paddingVertical: 4,
@@ -250,7 +266,7 @@ function NewHome() {
                     <Text style={{ color: "white" }}>
                       {wallet && wallet.slice(0, 6) + "..." + wallet.slice(-4)}
                     </Text>
-                    <DocumentDuplicateIcon color="green" size={16} />
+                    <DocumentDuplicateIcon color="#ff00ff" size={16} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -278,10 +294,8 @@ function NewHome() {
               wallet={wallet}
             />
           </Text>
-          <View></View>
-
-          <BottomNavbar />
         </View>
+        <BottomNavbar />
         <Toast
           ref={toastRef}
           position="center"

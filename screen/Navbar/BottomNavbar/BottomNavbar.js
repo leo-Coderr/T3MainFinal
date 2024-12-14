@@ -33,6 +33,8 @@ function BottomNavbar() {
           bottom: 0,
           width: "100%",
           borderTopWidth: 1,
+          borderColor: "rgba(255, 255, 255, 0.2)",
+          // borderTopWidth: 1,
           // borderColor: "darkwhite",
         }}
       >
@@ -42,7 +44,7 @@ function BottomNavbar() {
             justifyContent: "space-evenly",
             // backgroundColor: "black",
             alignItems: "center",
-            borderTop: "1px solid #ff00ff",
+
             paddingVertical: 15,
           }}
         >

@@ -95,7 +95,10 @@ export default function Transaction() {
                             ? `https://identityforge.sovereignty.one/transactions/${res.txhash}`
                             : res.chain == "SOLANA"
                             ? `https://explorer.solana.com/tx/${res.txhash}?ref=hub.despread.io&cluster=devnet`
-                            : `https://sepolia.etherscan.io/tx/${res.txhash}`;
+                            : res.chain == "ETH"
+                            ? `https://sepolia.etherscan.io/tx/${res.txhash}`
+                            : res.chain == "BTC" &&
+                              `https://www.blockchain.com/explorer/transactions/btc/${res.txhash}`;
                         if (url) {
                           Linking.openURL(url);
                         }
@@ -118,7 +121,7 @@ export default function Transaction() {
                             }}
                           >
                             <Text style={{ color: "white" }}>
-                              {moment(res.date).format("D MMMM, h:mm a")}
+                              {moment(res.time).format("D MMMM, h:mm a")}
                             </Text>
                             <Text style={{ color: "white" }}>
                               TxHash :&nbsp;
@@ -164,7 +167,7 @@ export default function Transaction() {
                                 <View style={{ marginBottom: 5 }}>
                                   <Text style={{ color: "white" }}>
                                     {" "}
-                                    Received {res.chain}
+                                    Sent {res.chain}
                                   </Text>
                                 </View>
                                 <View style={{ color: "green" }}>

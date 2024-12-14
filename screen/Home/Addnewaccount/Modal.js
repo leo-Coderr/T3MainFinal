@@ -97,10 +97,10 @@ export default function ModalDescriptionTransaction({
           >
             <View
               style={{
-                backgroundColor: "rgba(0, 0, 0, 0.9)",
+                backgroundColor: "rgba(255, 255, 255, 0.15)",
                 borderTopLeftRadius: 50,
                 borderTopRightRadius: 50,
-                elevation: 5,
+                // elevation: 5,
                 width: "100%",
               }}
             >
@@ -124,7 +124,7 @@ export default function ModalDescriptionTransaction({
                             fontWeight: "600",
                             width: 150,
                             height: 7,
-                            backgroundColor: "gray",
+                            backgroundColor: "rgba(255, 255, 255, 0.5)",
                             opacity: 20,
                             borderRadius: 30,
                             marginBottom: 20,

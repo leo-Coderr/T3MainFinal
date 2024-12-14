@@ -10,6 +10,7 @@ import HomeScreen from "./screen/Home/HomeScreen";
 import Send from "./screen/Send/Send";
 import SendAmount from "./screen/Send/SendAmount";
 import Validator from "./screen/Validator/Validator";
+import Scanner from "./screen/Home/Menu/Scanner";
 import Setting from "./screen/setting/Setting";
 import Transaction from "./screen/Transaction/Transaction";
 import SovereignAi from "./screen/Identity/Chatbot/Chatbot";
@@ -18,6 +19,7 @@ import GetStart from "./screen/GetStartedScreen/GetStart";
 import WalletSetup from "./screen/Import/WalletSetup/WalletSetup";
 import CreatePassword from "./screen/Import/WalletSetup/CreatePassword";
 import SignIn from "./screen/Signin/CreatePassword";
+import HviLogin from "./screen/Signin/HviLogin";
 import SovId from "./screen/SovId/SovId";
 import VerifySeedPhrase from "./screen/Signin/Signin";
 import SecretRecoveryPhrase from "./screen/SeedPhrase/SecretRecoveryPhrase";
@@ -25,7 +27,12 @@ import VerifySecretRecoveryPhrase from "./screen/SeedPhrase/VerifySecretRecovery
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Login from "./screen/Login/Login";
 import Chain from "./screen/Chain/Chain";
+import Security from "./screen/setting/Security/Security";
 import { Text, View } from "react-native";
+import OCRComponent from "./screen/Ocr/Ocr";
+import Liveness from "./screen/LivenessDetection/Liveness";
+import Gmail from "./screen/Import/WalletSetup/Gmail";
+import SeedPhrase from "./screen/setting/Security/SeedPhrase/SeedPhrase";
 
 // const MyTheme = {
 //   ...DarkTheme,
@@ -64,7 +71,7 @@ export default function App() {
     );
   }
 
-  const initialRoute = isSovidExists ? "Login" : "GetStart";
+  const initialRoute = isSovidExists ? "Chain" : "GetStart";
 
   return (
     <NavigationContainer>
@@ -80,8 +87,18 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="Ocr"
+          component={OCRComponent}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="Send"
           component={Send}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SeedPhrase"
+          component={SeedPhrase}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -100,6 +117,16 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="Security"
+          component={Security}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="HviLogin"
+          component={HviLogin}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="Setting"
           component={Setting}
           options={{ headerShown: false }}
@@ -107,6 +134,21 @@ export default function App() {
         <Stack.Screen
           name="SendAmount"
           component={SendAmount}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Scanner"
+          component={Scanner}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Gmail"
+          component={Gmail}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Liveness"
+          component={Liveness}
           options={{ headerShown: false }}
         />
         <Stack.Screen

@@ -92,7 +92,7 @@ const ChatComponent = () => {
               </View>
             </TouchableOpacity> */}
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigateToValidator("Security")}>
               <View
                 style={{
                   flexDirection: "row",

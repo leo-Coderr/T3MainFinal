@@ -4,10 +4,10 @@
     "slug": "t3app",
     "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/maskbg.png",
+    "icon": "./assets/appicon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/maskbg.png",
+      "image": "./assets/appicon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,20 +18,20 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/maskbg.png",
+        "foregroundImage": "./assets/appicon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.cryptocoderr.t3wallet"
     },
     "web": {
-      "favicon": "./assets/maskbg.png"
+      "favicon": "./assets/appicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "e81645a7-61f4-4454-a392-281edf7fc876"
+        "projectId": "e5d86bb3-ace9-46aa-b728-73aa3c190884"
       }
     },
-    "owner": "cryptocoderr",
+    "owner": "cryptocodrr",
     "runtimeVersion": {
       "policy": "appVersion"
     },

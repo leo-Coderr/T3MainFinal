@@ -15,7 +15,7 @@ import { balanceFetch } from "../BalanceFetch/BalanceFetch";
 import axios from "axios";
 import { url } from "../../URL/Url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import FingerprintScanner from "react-native-fingerprint-scanner";
+// import FingerprintScanner from "react-native-fingerprint-scanner";
 import PasswordModal from "./PasswordModal";
 
 const SOIDSendComponent = () => {
@@ -49,18 +49,18 @@ const SOIDSendComponent = () => {
     balancefetch();
   }, []);
 
-  const authenticateUser = async () => {
-    try {
-      await FingerprintScanner.authenticate({
-        description: "Authenticate to proceed",
-      });
-      return true;
-    } catch (error) {
-      console.error("Fingerprint authentication failed:", error);
-      setModalVisible(true);
-      return false;
-    }
-  };
+  // const authenticateUser = async () => {
+  //   try {
+  //     await FingerprintScanner.authenticate({
+  //       description: "Authenticate to proceed",
+  //     });
+  //     return true;
+  //   } catch (error) {
+  //     console.error("Fingerprint authentication failed:", error);
+  //     setModalVisible(true);
+  //     return false;
+  //   }
+  // };
 
   const handlePasswordSubmit = (enteredPassword) => {
     if (enteredPassword === password) {
@@ -76,8 +76,8 @@ const SOIDSendComponent = () => {
   };
 
   const handleTokenTransfer = async () => {
-    const isAuthenticated = await authenticateUser();
-    if (!isAuthenticated && verified) return;
+    // const isAuthenticated = await authenticateUser();
+    if (verified) return;
 
     try {
       setIsLoading(true);
@@ -101,6 +101,13 @@ const SOIDSendComponent = () => {
           recipientAddress: towallet,
           privateKey: privateKey,
         });
+      } else if (currency == "BTC") {
+        res = await axios.post(`${url}/send-bitcoin`, {
+          fromAddress: fromwallet,
+          amountSatoshis: amount,
+          toAddress: towallet,
+          privateKeyWIF: privateKey,
+        });
       }
       if (res.data || res.data.signature || res.success) {
         let transactionHash;
@@ -109,10 +116,10 @@ const SOIDSendComponent = () => {
         } else if (currency == "SOID") {
           transactionHash = res.data.result.transactionHash;
         }
-
+        const txTime = new Date().toISOString();
         const transaction = {
           chain: currency,
-          time: new Date().toISOString(),
+          time: txTime,
           amount: currency == "SOID" ? amount * 1e6 : amount,
           txhash: transactionHash,
         };
@@ -276,9 +283,16 @@ const SOIDSendComponent = () => {
               onChangeText={setAmount}
               value={amount}
               keyboardType="numeric"
-              placeholder="0 SOID"
+              placeholder={`enter amt of ${currency.toLowerCase()}`}
               placeholderTextColor="gray"
             />
+            {amount > (currency === "SOID" ? balance / 1e6 : balance) ? (
+              <Text style={{ color: "red" }}>
+                You don't have enough balance...
+              </Text>
+            ) : (
+              ""
+            )}
             <View
               style={{
                 flexDirection: "row",
@@ -312,8 +326,20 @@ const SOIDSendComponent = () => {
                   borderRadius: 5,
                   padding: 10,
                   width: "45%",
+                  opacity:
+                    amount > (currency === "SOID" ? balance / 1e6 : balance) ||
+                    !amount ||
+                    amount == 0
+                      ? 0.5
+                      : 1,
                 }}
-                onPress={handleTokenTransfer}
+                onPress={
+                  amount > (currency === "SOID" ? balance / 1e6 : balance) ||
+                  !amount ||
+                  amount == 0
+                    ? () => {}
+                    : handleTokenTransfer
+                }
               >
                 <Text
                   style={{

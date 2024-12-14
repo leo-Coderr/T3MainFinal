@@ -74,7 +74,7 @@ export default function WalletSetup() {
               borderRadius: 50,
               marginBottom: 15,
             }}
-            onPress={() => navigateTo("SignIn")}
+            onPress={() => navigateTo("HviLogin")}
           >
             <Text
               style={{
@@ -98,7 +98,7 @@ export default function WalletSetup() {
               borderRadius: 50,
               backgroundColor: "#ff00ff",
             }}
-            onPress={() => navigateTo("CreatePassword")}
+            onPress={() => navigateTo("Ocr")}
           >
             <Text
               style={{
